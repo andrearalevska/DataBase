@@ -16,11 +16,11 @@ SET AchievementPoints = @AchievementPoints,
 	AchievementDate = @AchievementDate
 WHERE GradeId = @GradeId and AchievementTypeId = @AchievementTypeId
 
-SELECT @SumOfGradePoints = SUM((gd.AchievementPoints/gd.AchievementMaxPoints)*act.ParticipationRate)
+SELECT @SumOfGradePoints = SUM(CONVERT(DECIMAL(10, 2), gd.AchievementPoints) / CONVERT(DECIMAL(10, 2), gd.AchievementMaxPoints) * CONVERT(DECIMAL(10, 2), act.ParticipationRate))
 FROM GradeDetails gd
 inner join AchievementType act
 on AchievementTypeId = act.ID
-WHERE GradeId = @GradeId
+WHERE gd.GradeId = @GradeId
 END
 GO
 
